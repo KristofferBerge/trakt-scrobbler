@@ -17,7 +17,7 @@ var client_id = '73fa81f2b8eb248acf687066f0918a999b78e926e501930ab22ad72173978fe
 //var chrome_id = 'jddcigfgnkcpfkhccfdaaoaepkmnmmib';
 
 //DEV
-var chrome_id = 'nbjobjedighealiaeimkpokpgamgjojp';
+var chrome_id = 'adicolhgphcaaeheekjbmkikgjojdjnm';
 
 function stateChanged(){
     document.getElementById('notSignedIn').style.display = 'none';

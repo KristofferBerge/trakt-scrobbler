@@ -1,6 +1,6 @@
 {
   "name": "Trakt scrobbler for nrk.no",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "manifest_version": 2,
   "description": "Automatic scrobbler for NRK. Log in with trakt user and access watched status and automatic scrobbeling.",
   "icons": {
@@ -19,6 +19,8 @@
     "https://tv.nrk.no/*",
     "http://api.trakt.tv/*",
     "https://api.trakt.tv/*",
+    "http://www.viafree.no/*",
+    "https://www.viafree.no/*",
     "storage",
     "webRequest",
     "identity"
@@ -35,6 +37,19 @@
       ],
       "js": [
         "scripts/nrk.js",
+        "scripts/apiCommunicator.js",
+        "scripts/common.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "http://www.viafree.no/*",
+        "https://www.viafree.no/*"
+      ],
+      "js": [
+        "scripts/viafree.js",
         "scripts/apiCommunicator.js",
         "scripts/common.js"
       ],

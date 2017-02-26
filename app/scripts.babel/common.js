@@ -203,9 +203,18 @@ chrome.storage.sync.get(['traktToken'],
 
 //Domain specific script should contain method named scrape
 function start() {
+    //Resetting scraped values
+    scrapedItem.type  = ContentType.none,
+    scrapedItem.title = undefined,
+    scrapedItem.originalTitle = undefined,
+    scrapedItem.episode = undefined,
+    scrapedItem.season = undefined,
+    scrapedItem.productionYear = undefined
+
     if(!scrape()){
         console.info('Scraping failed. No content present on site?');
         //Stop here if no content is found
+        state = LoadingState.error;
         return;
     }
     else{
