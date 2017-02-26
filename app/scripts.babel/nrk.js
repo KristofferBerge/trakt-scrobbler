@@ -48,6 +48,9 @@ function listenForScrobbleEvents(){
     interval = setInterval(checkForWatchedEvent,1000);
 }
 
+function getUpNextURL(season, episode){
+    return undefined;
+}
 
 ///////////////////////////
 // Site specific code

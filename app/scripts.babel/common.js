@@ -44,6 +44,7 @@ var matchedContent = {
     totalEpisodes: undefined,
     watchedEpisodes: undefined,
     nextUp: undefined,
+    nextUpURL: undefined
 }
 
 ///////////////////
@@ -135,6 +136,8 @@ function handleShowWatchedStatus(response){
     matchedContent.totalEpisodes = response.aired;
     matchedContent.watchedEpisodes = response.completed;
     matchedContent.nextUp = 'S' + response.next_episode.season + 'E' + response.next_episode.number;
+    //Getting url for up next from domain native code. Undefined if not supported
+    matchedContent.nextUpURL = getUpNextURL(response.next_episode.season,response.next_episode.number);
     //Checking if current episode is watched
     outer:for(let s of response.seasons){
         //TODO: 0-padding might be a problem on some sites

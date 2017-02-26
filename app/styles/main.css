@@ -87,3 +87,10 @@ img.icon{
     border-style: solid;
     border-color: transparent transparent black transparent;
 }
+#nextUp{
+  display:inline-block;
+}
+#nextUp:hover{
+  color:gray;
+  cursor: pointer;
+}

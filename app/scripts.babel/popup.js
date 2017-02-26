@@ -4,6 +4,7 @@ document.getElementById('setSeriesWatchedButton').addEventListener('click',markC
 document.getElementById('setMovieWatchedButton').addEventListener('click',markContentAsWatched);
 document.getElementById('setSeriesUnWatchedButton').addEventListener('click',markContentAsUnWatched);
 document.getElementById('setMovieUnWatchedButton').addEventListener('click',markContentAsUnWatched);
+document.getElementById('nextUp').addEventListener('click',navigateToNextEpisode);
 
 var infoBuffer;
 
@@ -89,7 +90,7 @@ function displayContentInfo(info){
       document.getElementById('seriesProgressBar').setAttribute('max', info.matchedInfo.totalEpisodes);
       document.getElementById('seriesProgressBar').setAttribute('value',info.matchedInfo.watchedEpisodes);
       document.getElementById('seriesProgressText').innerHTML = info.matchedInfo.watchedEpisodes + '/' + info.matchedInfo.totalEpisodes + ' watched.';
-      document.getElementById('nextUp').innerHTML = 'Up next: ' + info.matchedInfo.nextUp;      
+      document.getElementById('nextUp').innerHTML = 'Up next: ' + info.matchedInfo.nextUp;
       displayWatchedStatus(info.matchedInfo.watched);
     }
   }
@@ -133,6 +134,15 @@ window.addEventListener('DOMContentLoaded', function () {
   // ...query for the active tab...
   queryActiveTabForInfo();
 });
+
+function navigateToNextEpisode(){
+  if(infoBuffer.matchedInfo.nextUpURL != undefined){
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      var tab = tabs[0];
+      chrome.tabs.update(tab.id, {url: infoBuffer.matchedInfo.nextUpURL});
+    });
+  }
+}
 
 function queryActiveTabForInfo(){
   chrome.tabs.query({

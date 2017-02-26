@@ -31,6 +31,13 @@ function listenForScrobbleEvents(){
     listenForPlayedEvent = true;
 }
 
+function getUpNextURL(season, episode){
+    var loc = document.URL.split('//')[1].split('/');
+    loc[loc.length-2] = 'sesong-' + season;
+    loc[loc.length-1] = 'episode-' + episode;
+    return 'https://' + loc.join('/');
+}
+
 
 ///////////////////////////
 // Site specific code
