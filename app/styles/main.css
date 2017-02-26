@@ -1,0 +1,89 @@
+body {
+  padding: 20px;
+  min-width: 220px;
+}
+#pageName{
+  margin:0;
+}
+#progressWrapper > *{
+  display:inline-block;
+}
+#progressHeading{
+  margin-bottom:0;
+}
+#seriesProgressText{
+  padding-left:1em;
+}
+#watchedStatus{
+    background: lightgray;
+    display: inline;
+    border-radius: 7px;
+    padding: 0.3em 1em;
+    vertical-align: middle;
+}
+#movieWatchedStatus{
+    background: lightgray;
+    display: inline;
+    border-radius: 7px;
+    padding: 0.3em 1em;
+    margin-top:0;
+}
+#movieWatchedWrapper{
+  display:flex;
+}
+#movieWatchedWrapper{
+  display:flex;
+}
+img.icon{
+  width:2em;
+  height:2em;
+  display:inline;
+  padding: 0.3em 0.3em;
+  vertical-align: middle;
+  margin: 0 1em;
+}
+.green{
+  background:limegreen;
+}
+.red{
+  background:lightcoral;
+}
+
+/*TOOLTIP*/
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+.tooltip:hover img.green{
+  background:green;
+}
+.tooltip:hover img.red{
+  background:red;
+}
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}

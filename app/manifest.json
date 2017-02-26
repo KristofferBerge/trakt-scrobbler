@@ -1,0 +1,53 @@
+{
+  "name": "Trakt scrobbler for nrk.no",
+  "version": "0.0.4",
+  "manifest_version": 2,
+  "description": "Automatic scrobbler for NRK. Log in with trakt user and access watched status and automatic scrobbeling.",
+  "icons": {
+    "16": "images/trakt-16.png",
+    "128": "images/trakt-128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "scripts/background.js"
+    ]
+  },
+  "permissions": [
+    "tabs",
+    "http://tv.nrk.no/*",
+    "https://tv.nrk.no/*",
+    "http://api.trakt.tv/*",
+    "https://api.trakt.tv/*",
+    "storage",
+    "webRequest",
+    "identity"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://tv.nrk.no/*",
+        "https://tv.nrk.no/*"
+      ],
+      "js": [
+        "scripts/nrk.js",
+        "scripts/apiCommunicator.js",
+        "scripts/common.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  "page_action": {
+    "default_icon": {
+      "19": "images/trakt-19.png",
+      "38": "images/trakt-38.png"
+    },
+    "default_title": "traktnrk",
+    "default_popup": "popup.html"
+  }
+}
