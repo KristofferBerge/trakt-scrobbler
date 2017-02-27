@@ -31,6 +31,8 @@ function hideAll(){
   document.getElementById('noContent').style.display = 'none';
   document.getElementById('addShow').style.display = 'none';
   document.getElementById('addMovie').style.display = 'none';
+  document.getElementById('nextUp').style.display = 'none';
+  
 }
 
 function markContentAsWatched(){
@@ -90,7 +92,10 @@ function displayContentInfo(info){
       document.getElementById('seriesProgressBar').setAttribute('max', info.matchedInfo.totalEpisodes);
       document.getElementById('seriesProgressBar').setAttribute('value',info.matchedInfo.watchedEpisodes);
       document.getElementById('seriesProgressText').innerHTML = info.matchedInfo.watchedEpisodes + '/' + info.matchedInfo.totalEpisodes + ' watched.';
-      document.getElementById('nextUp').innerHTML = 'Up next: ' + info.matchedInfo.nextUp;
+      if(info.matchedInfo.nextUp != undefined){
+        document.getElementById('nextUp').style.display = 'inline';
+        document.getElementById('nextUp').innerHTML = 'Up next: ' + info.matchedInfo.nextUp;
+      }
       displayWatchedStatus(info.matchedInfo.watched);
     }
   }
