@@ -80,6 +80,16 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
 // Functions
 /////////////
 
+function storeSearchResponse(response){
+    if(response == undefined || response.length == 0){
+        console.error('No search results received from trakt api.');
+        state = LoadingState.unmatched;
+        return;
+    }
+    //Keeping search response for the posibility of manual matching at a later point
+    matchedContent.searchResponse = response;
+}
+
 function handleSearchResponse(response){
     console.log('Info received');
     console.log(response);
@@ -265,6 +275,8 @@ function checkForOverride(){
             if(items['shows'] != undefined && items['shows'][DOMAIN] != undefined && items['shows'][DOMAIN][scrapedItem.itemKey] != undefined){
                 //OVERRIDE
                 findItemByTraktId(items['shows'][DOMAIN][scrapedItem.itemKey],handleSearchResponse);
+                //Get search results anyway
+                findItem(storeSearchResponse);
             }
             else{
                 findItem(handleSearchResponse);
@@ -279,6 +291,8 @@ function checkForOverride(){
             if(items['movies'] != undefined && items['movies'][DOMAIN] != undefined && items['movies'][DOMAIN][scrapedItem.itemKey] != undefined){
                 //OVERRIDE
                 findItemByTraktId(items['movies'][DOMAIN][scrapedItem.itemKey],handleSearchResponse);
+                //Get search results anyway
+                findItem(storeSearchResponse);
             }
             else{
                 findItem(handleSearchResponse);
