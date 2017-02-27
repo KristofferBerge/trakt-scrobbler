@@ -1,6 +1,6 @@
 'use strict';
 //Variables scrapedItem and matchedContent are made available by manifest.json
-
+var DOMAIN = 'tvnrkno';
 var interval;
 
 ////////////////////////////
@@ -13,6 +13,7 @@ function scrape(){
     if(scrapedItem.type == 2){
         console.log('Content is episode.');        
         scrapedItem.title = getMetaContentByName('seriestitle');
+        scrapedItem.itemKey = scrapedItem.title.split(' ').join('');
         scrapedItem.episode = getMetaContentByName('episodenumber');
         scrapedItem.season = getSeasonNumber();
     }

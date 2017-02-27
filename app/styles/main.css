@@ -94,3 +94,16 @@ img.icon{
   color:gray;
   cursor: pointer;
 }
+#manualMatchContainer > ul{
+  list-style:none;
+  padding-left:0;
+}
+#manualMatchContainer > ul li{
+  padding: 0.3em;
+  font-size: 1.5em;
+  border: solid black 1px;
+}
+#manualMatchContainer > ul li:hover{
+  background: lightgray;
+  cursor: pointer;
+}

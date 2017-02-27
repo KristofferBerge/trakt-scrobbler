@@ -163,6 +163,36 @@ function findItem(callback){
     req.send();
 }
 
+function findItemByTraktId(id,callback){
+    var type;
+    if(scrapedItem.type == 3)
+        type = 'movie';
+    else if(scrapedItem.type == 2)
+        type = 'show';
+    else{
+        console.error('Item type is unknown. Searching is pointless.');
+        return;
+    }
+    var req = new XMLHttpRequest();
+    req.open('GET','https://api.trakt.tv/search/trakt/' + id + '?type='+ type);
+    setRequestHeaders(req);
+    req.onreadystatechange = function(){
+      if(req.readyState == 4){
+        if(req.status == 200){
+          var response = JSON.parse(req.responseText);
+          callback(response);
+        }
+        else if(req.status == 401){
+          handleUnauthorizedResponse();
+        }
+        else{
+            console.error('Item search failed');
+        }
+      }
+    }
+    req.send();
+}
+
 function getEpisode(callback){
     var req = new XMLHttpRequest();
     req.open('GET','https://api.trakt.tv/shows/' + matchedContent.traktId + '/seasons/' + scrapedItem.season + '/episodes/' + scrapedItem.episode);

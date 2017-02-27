@@ -5,6 +5,9 @@ document.getElementById('setMovieWatchedButton').addEventListener('click',markCo
 document.getElementById('setSeriesUnWatchedButton').addEventListener('click',markContentAsUnWatched);
 document.getElementById('setMovieUnWatchedButton').addEventListener('click',markContentAsUnWatched);
 document.getElementById('nextUp').addEventListener('click',navigateToNextEpisode);
+document.getElementById('manualMatchButton').addEventListener('click',matchManually);
+//Just trigger refresh if cancelled
+document.getElementById('cancelManualMatchButton').addEventListener('click',queryActiveTabForInfo);
 
 var infoBuffer;
 
@@ -32,6 +35,7 @@ function hideAll(){
   document.getElementById('addShow').style.display = 'none';
   document.getElementById('addMovie').style.display = 'none';
   document.getElementById('nextUp').style.display = 'none';
+  document.getElementById('manualMatchContainer').style.display = 'none';
   
 }
 
@@ -118,15 +122,20 @@ function displayContentInfo(info){
     }
     displayWatchedStatus(info.matchedInfo.watched);
   }
-  if(info.status == 2){
+  //If status is unmatched or episode is missing
+  if(info.status == 2 || info.status == 4){
     document.getElementById('movieWatchedWrapper').style.display = 'none';
     document.getElementById('progressWrapper').style.display = 'none';
     document.getElementById('progressHeading').style.display = 'none';
     document.getElementById('seriesWatchedWrapper').style.display = 'none';
     document.getElementById('traktId').style.display = 'block';
     document.getElementById('traktId').innerHTML = 'Item not found...';
-    document.getElementById('addShow').style.display = 'block';
-    document.getElementById('addMovie').style.display = 'block';
+    document.getElementById('manualMatchButton').style.display = 'block';    
+    if(info.status == 2){
+      document.getElementById('manualMatchButton').style.display = 'none';
+      document.getElementById('addShow').style.display = 'block';
+      document.getElementById('addMovie').style.display = 'block';
+    }
   }
   else if(info.status == 1){
     document.getElementById('traktId').innerHTML = 'Trakt id: ' + info.matchedInfo.traktId;
@@ -146,6 +155,37 @@ function navigateToNextEpisode(){
       var tab = tabs[0];
       chrome.tabs.update(tab.id, {url: infoBuffer.matchedInfo.nextUpURL});
     });
+  }
+}
+
+function matchManually(){
+  hideAll();
+  populateSearchList();
+  document.getElementById('manualMatchContainer').style.display = 'block';
+  document.getElementById('manualMatchButton').style.display = 'none';
+}
+
+function populateSearchList(){
+  var list = document.getElementById('searchResultList');
+  //Clearing list
+  list.innerHTML = '';
+  if(infoBuffer != undefined && infoBuffer.matchedInfo.searchResponse != undefined){
+    for(var item of infoBuffer.matchedInfo.searchResponse){
+      var li = document.createElement('li');
+      //If episode. Search results will be show
+      if(infoBuffer.scrapedInfo.type == 2){
+        li.innerHTML = item.show.title;
+        li.setAttribute('value',item.show.ids.trakt);
+        li.addEventListener('click',setShowID);
+      }
+      //If movie
+      else if(infoBuffer.scrapedInfo.type == 3){
+        li.innerHTML = item.movie.title + '(' + item.movie.year + ')';
+        li.setAttribute('value',item.movie.ids.trakt);
+        li.addEventListener('click',setMovieID);
+      }
+      list.appendChild(li);
+    }
   }
 }
 
@@ -172,3 +212,37 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
     queryActiveTabForInfo();
   }
 });
+
+function setShowID(){
+  //Set status loading and refresh popup
+  infoBuffer.status = 0;
+  var showId = this.getAttribute('value');
+  displayContentInfo(infoBuffer);
+    chrome.tabs.query({
+    active: true,
+    currentWindow: true
+  }, function (tabs) {
+  chrome.tabs.sendMessage(
+    tabs[0].id,
+    {from: 'popup', 
+    subject: 'setShowID',
+    id: showId
+  })});
+}
+
+function setMovieID(){
+  //Set status loading and refresh popup
+  infoBuffer.status = 0;
+  var movieId = this.getAttribute('value');
+  displayContentInfo(infoBuffer);
+    chrome.tabs.query({
+    active: true,
+    currentWindow: true
+  }, function (tabs) {
+  chrome.tabs.sendMessage(
+    tabs[0].id,
+    {from: 'popup', 
+    subject: 'setMovieID',
+    id: movieId
+    })});
+}

@@ -1,6 +1,6 @@
 'use strict';
 //Variables scrapedItem and matchedContent are made available by manifest.json
-
+var DOMAIN = 'viafree.no';
 var interval;
 var url;
 var listenForPlayedEvent = false;
@@ -18,8 +18,10 @@ function scrape(){
     }
     //Viafree has no movies. Only tv shows.
     else{
-        scrapedItem.type = ContentType.episode;        
+        scrapedItem.type = ContentType.episode;
         scrapedItem.title = document.getElementsByClassName('format-title')[0].innerHTML;
+        //Setting key as title without spaces
+        scrapedItem.itemKey = scrapedItem.title.split(' ').join('');
         //Must find if content is ContentType.episode
         scrapedItem.episode = document.getElementsByClassName('episodeNumber')[0].children[1].innerHTML.split(' ')[1];
         scrapedItem.season = document.getElementsByClassName('thumbnail-season')[0].children[0].innerHTML.split(' ')[1];

@@ -41,6 +41,8 @@
       <h3 id="nextUp"></h3>
       <a href="http://thetvdb.com/?tab=addshow" id="addShow" target="_blank">Add to thetvdb.com</a>
     </div>
+    
+    
     <div id="movieInfo">
       <a id="movieTraktUrl" href="#" target="_blank"><h1><span id="movieName">Loading</span><span id="movieProductionYear"></span></h1></a>
       <div id="movieWatchedWrapper">
@@ -57,8 +59,18 @@
       </div>
       <a href="https://www.themoviedb.org/movie/new" id="addMovie" target="_blank">Add to themoviedb.com</a>      
     </div>
+
     <span id="traktId"></span>
     <div id="noContent">No content on page</div>
+    <button id="manualMatchButton">Match manually</button>
+    <div id="manualMatchContainer">
+      <ul id="searchResultList">
+        <li>Hallo</li>
+        <li>Hei</li>
+        <li>Test</li>
+      </ul>
+      <button id="cancelManualMatchButton">Cancel</button>
+    </div>
     <!-- build:js scripts/apiCommunicator.js -->
     <!-- build:js scripts/popup.js -->
     <script src="scripts/apiCommunicator.js"></script>
