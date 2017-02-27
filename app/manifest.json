@@ -1,8 +1,8 @@
 {
-  "name": "Trakt scrobbler for nrk.no",
-  "version": "0.0.6",
+  "name": "Trakt scrobbler",
+  "version": "0.0.7",
   "manifest_version": 2,
-  "description": "Automatic scrobbler for NRK. Log in with trakt user and access watched status and automatic scrobbeling.",
+  "description": "Automatic trakt scrobbler for web-tv. Log in with trakt user and access watched status and automatic scrobbeling.",
   "icons": {
     "16": "images/trakt-16.png",
     "128": "images/trakt-128.png"
