@@ -36,6 +36,7 @@ function hideAll(){
   document.getElementById('addMovie').style.display = 'none';
   document.getElementById('nextUp').style.display = 'none';
   document.getElementById('manualMatchContainer').style.display = 'none';
+  document.getElementById('manualMatchButton').style.display = 'none';
   
 }
 
@@ -102,6 +103,7 @@ function displayContentInfo(info){
       }
       displayWatchedStatus(info.matchedInfo.watched);
     }
+    document.getElementById('manualMatchButton').style.display = 'block';    
   }
   //If content is of type movie
   else if(info.scrapedInfo.type == 3){
@@ -119,8 +121,9 @@ function displayContentInfo(info){
         document.getElementById('movieProductionYear').innerHTML = '(' + info.matchedInfo.productionYear + ')';
       }
       document.getElementById('movieTraktUrl').setAttribute('href','https://trakt.tv/movies/' + info.matchedInfo.traktId);
+      displayWatchedStatus(info.matchedInfo.watched);
     }
-    displayWatchedStatus(info.matchedInfo.watched);
+    document.getElementById('manualMatchButton').style.display = 'block';
   }
   //If status is unmatched or episode is missing
   if(info.status == 2 || info.status == 4){
@@ -130,7 +133,6 @@ function displayContentInfo(info){
     document.getElementById('seriesWatchedWrapper').style.display = 'none';
     document.getElementById('traktId').style.display = 'block';
     document.getElementById('traktId').innerHTML = 'Item not found...';
-    document.getElementById('manualMatchButton').style.display = 'block';    
     if(info.status == 2){
       document.getElementById('manualMatchButton').style.display = 'none';
       document.getElementById('addShow').style.display = 'block';
