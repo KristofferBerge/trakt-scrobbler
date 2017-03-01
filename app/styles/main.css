@@ -37,6 +37,7 @@ body {
 img.icon{
   width:2em;
   height:2em;
+  border-radius:25%;
   display:inline;
   padding: 0.3em 0.3em;
   vertical-align: middle;
