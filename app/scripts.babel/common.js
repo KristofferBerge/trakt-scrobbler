@@ -107,6 +107,19 @@ function handleSearchResponse(response){
         matchedContent.traktId = bestGuess.show.ids.trakt;
         matchedContent.title = bestGuess.show.title;
         matchedContent.type = 2;
+
+        //If season is four digits, it's probably a year.
+        if(scrapedItem.season.toString().length == 4){
+            console.info('Season number is probably a year');
+            if(bestGuess.year){
+                console.info('Show started in ' + bestGuess.year + '. Season named ' + scrapedItem.season + ' is probably season ' + Number(scrapedItem.season) - bestGuess.year);
+                scrapedItem.season = Number(scrapedItem.season) - bestGuess.year;
+            }
+            else{
+                console.log('Show didn\'t have a start year. No clue what season this is');
+            }
+        }
+
         //Content matched to tv show. Get the specific episode
         getEpisode(handleEpisodeResponse);
     }

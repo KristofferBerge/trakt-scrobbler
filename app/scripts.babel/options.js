@@ -14,10 +14,10 @@ document.getElementById('signOutButton').addEventListener('click', logOut);
 var client_secret = 'bb270b98df702537797ff82e84195915991dab205a9e4ea13470d45c88c7688a';
 var client_id = '73fa81f2b8eb248acf687066f0918a999b78e926e501930ab22ad72173978fe9';
 //PROD
-//var chrome_id = 'jddcigfgnkcpfkhccfdaaoaepkmnmmib';
+var chrome_id = 'jddcigfgnkcpfkhccfdaaoaepkmnmmib';
 
 //DEV
-var chrome_id = 'adicolhgphcaaeheekjbmkikgjojdjnm';
+//var chrome_id = 'adicolhgphcaaeheekjbmkikgjojdjnm';
 
 function stateChanged(){
     document.getElementById('notSignedIn').style.display = 'none';

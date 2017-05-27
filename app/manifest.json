@@ -1,6 +1,6 @@
 {
   "name": "Trakt scrobbler",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "manifest_version": 2,
   "description": "Automatic trakt scrobbler for web-tv. Log in with trakt user and access watched status and automatic scrobbeling.",
   "icons": {
@@ -15,12 +15,8 @@
   },
   "permissions": [
     "tabs",
-    "http://tv.nrk.no/*",
-    "https://tv.nrk.no/*",
-    "http://api.trakt.tv/*",
-    "https://api.trakt.tv/*",
-    "http://www.viafree.no/*",
-    "https://www.viafree.no/*",
+    "http://*/*",
+    "https://*/*",
     "storage",
     "webRequest",
     "identity"
